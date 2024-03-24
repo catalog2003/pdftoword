@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Infinite Response Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Click the button to start the infinite response</h1>
+    <button id="startButton">Start Infinite Response</button>
+    <pre id="response"></pre>
+
+    <script>
+        $(document).ready(function() {
+            $('#startButton').click(function() {
+                $.ajax({
+                    url: '/start_infinite',
+                    type: 'POST',
+                    success: function(response) {
+                        $('#response').text(response);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
