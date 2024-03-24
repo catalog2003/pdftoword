@@ -5,7 +5,7 @@ import threading
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 conversion_threads = {}
 
@@ -13,6 +13,10 @@ def convert_with_progress(pdf_path, output_docx):
     cv = Converter(pdf_path)
     cv.convert(output_docx, start=0, end=None)
     cv.close()
+
+@app.route('/', methods=['GET'])
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/convert', methods=['POST'])
 def convert():
