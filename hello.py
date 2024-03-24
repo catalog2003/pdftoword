@@ -5,7 +5,7 @@ import threading
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/convert": {"origins": "http://127.0.0.1:5500"}})
 
 conversion_threads = {}
 
