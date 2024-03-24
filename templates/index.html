@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flask Infinite Response Example</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Counting Numbers</title>
 </head>
 <body>
-    <h1>Click the button to start the infinite response</h1>
-    <button id="startButton">Start Infinite Response</button>
-    <pre id="response"></pre>
-
+    <h1>Click the button to start counting</h1>
+    <button onclick="startCounting()">Start Counting</button>
+    <div id="output"></div>
     <script>
-        $(document).ready(function() {
-            $('#startButton').click(function() {
-                $.ajax({
-                    url: '/start_infinite',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#response').text(response);
-                    }
-                });
-            });
-        });
+        function startCounting() {
+            var source = new EventSource('/stream');
+            source.onmessage = function(event) {
+                document.getElementById("output").innerHTML += event.data;
+            };
+        }
     </script>
 </body>
 </html>
